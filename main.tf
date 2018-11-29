@@ -17,7 +17,7 @@ module "vps2" {
   source  = "app.terraform.io/JoeStack/vps2/aws"
   version = "4.0.0"
 
-  bastion_ami = "ami-09351ab2e74aadeb2"
+  bastion_ami = "ami-0f9cf087c1f27d9b1"
   cidr_block = "10.0.0.0/16"
   key_name = "joestack"
 }
