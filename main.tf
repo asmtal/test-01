@@ -29,6 +29,6 @@ module "security_group" {
   source  = "app.terraform.io/JoeStack/security-group/aws"
   version = "0.6"
 
-  name = "sg-foo"
+  name = "sgfoo"
   vpc_id = "${module.network.vpc_id}"
 }
