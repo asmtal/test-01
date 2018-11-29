@@ -12,7 +12,7 @@ module "ec2_instance" {
   ami = "ami-09351ab2e74aadeb2"
   instance_type = "t2.small"
   name = "foo"
-  subnet_id = "${module.vpc.private_subnets}"
+  subnet_id = "${module.vpc.private_subnets[0]}"
   vpc_security_group_ids = "${module.vpc.default_security_group_id}"
 }
 
