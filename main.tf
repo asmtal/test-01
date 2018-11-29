@@ -14,7 +14,7 @@ module "ec2_instance" {
   instance_type = "t2.small"
   name = "ec2-foo"
   subnet_id = "${module.network.sn_private_a_id}"
-  vpc_security_group_ids = "${module.security_group.id}"
+  vpc_security_group_ids = ["${module.security_group.id}"]
 }
 
 module "network" {
