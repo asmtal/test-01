@@ -1,3 +1,7 @@
+//--------------------------------------------------------------------
+// Variables
+
+
 
 
 //--------------------------------------------------------------------
@@ -6,18 +10,25 @@ module "ec2_instance" {
   source  = "app.terraform.io/JoeStack/ec2-instance/aws"
   version = "1.13.0"
 
-  ami = "ami-09351ab2e74aadeb2"
+  ami = "ami-0f9cf087c1f27d9b1"
   instance_type = "t2.small"
-  name = "foo"
-  subnet_id = "${module.vps2.private_subnet_ids[0]}"
-  vpc_security_group_ids = "${module.vps2.bastion_security_group_id}"
+  name = "ec2-foo"
+  subnet_id = "${module.network.sn_private_a_id}"
+  vpc_security_group_ids = "${module.security_group.id}"
 }
 
-module "vps2" {
-  source  = "app.terraform.io/JoeStack/vps2/aws"
-  version = "4.0.0"
+module "network" {
+  source  = "app.terraform.io/JoeStack/network/aws"
+  version = "0.0.5"
 
-  bastion_ami = "ami-0f9cf087c1f27d9b1"
-  cidr_block = "10.0.0.0/16"
-  key_name = "joestack"
+  aws_region = "us-east-1"
+  vpc_name = "vpc-foo"
+}
+
+module "security_group" {
+  source  = "app.terraform.io/JoeStack/security-group/aws"
+  version = "0.6"
+
+  name = "sg-foo"
+  vpc_id = "${module.network.vpc_id}"
 }
