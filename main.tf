@@ -1,4 +1,5 @@
 
+
 //--------------------------------------------------------------------
 // Modules
 module "ec2_instance" {
@@ -8,16 +9,15 @@ module "ec2_instance" {
   ami = "ami-09351ab2e74aadeb2"
   instance_type = "t2.small"
   name = "foo"
-  subnet_id = "${module.vpc.private_subnets}"
-  vpc_security_group_ids = "${module.vpc.default_security_group_id}"
+  subnet_id = "${module.vps2.private_subnet_ids[0]}"
+  vpc_security_group_ids = "${module.vps2.bastion_security_group_id}"
 }
 
-module "vpc" {
-  source  = "app.terraform.io/JoeStack/vpc/aws"
-  version = "1.46.0"
+module "vps2" {
+  source  = "app.terraform.io/JoeStack/vps2/aws"
+  version = "4.0.0"
 
-  cidr = "10.0.0.0/16"
-  private_subnets = ["10.0.1.0/24"]
+  bastion_ami = "ami-09351ab2e74aadeb2"
+  cidr_block = "10.0.0.0/16"
+  key_name = "joestack"
 }
-  
-  
